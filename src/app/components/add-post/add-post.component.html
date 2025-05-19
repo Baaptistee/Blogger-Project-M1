@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Créer un nouveau post</h2>
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Titre :</label>
+      <input
+        id="title"
+        formControlName="title"
+        class="form-control"
+        placeholder="Entrez le titre"
+      />
+      <div *ngIf="postForm.get('title')?.invalid && postForm.get('title')?.touched" class="text-danger mt-1">
+        <small>Le titre est requis.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="content" class="form-label">Contenu :</label>
+      <textarea
+        id="content"
+        formControlName="content"
+        class="form-control"
+        rows="5"
+        placeholder="Entrez le contenu"
+      ></textarea>
+      <div *ngIf="postForm.get('content')?.invalid && postForm.get('content')?.touched" class="text-danger mt-1">
+        <small>Le contenu est requis.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Catégorie :</label>
+      <select id="category" formControlName="category" class="form-select">
+        <option *ngFor="let category of categories" [ngValue]="category">
+          {{ category.name }}
+        </option>
+      </select>
+      <div *ngIf="postForm.get('category')?.invalid && postForm.get('category')?.touched" class="text-danger mt-1">
+        <small>La catégorie est requise.</small>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">
+      <i class="bi bi-check-circle"></i> Créer le post
+    </button>
+  </form>
+</div>
+
